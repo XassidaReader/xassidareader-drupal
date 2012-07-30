@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ *  XassidaReader Drupal Module Main File
+ *
+ * @author
+ *  Papa Pathe SENE
+ *  
+ * @copyright
+ * 	Xarala Web Studios
+ * 
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function xassidareader_menu() {
+  /*
+   *$items['blog'] = array(
+   *  'title' => 'blogs',
+   *  'page callback' => 'blog_page',
+   *  'access arguments' => array('access content'),
+   *  'type' => MENU_SUGGESTED_ITEM,
+   *);
+   */
+  $items['admin/config/xassidareader'] = array(
+    'title' => 'XassidaReader options',
+    'page callback' => 'xassidareader_admin_page',
+    'access arguments' => array(''),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'xassidareader.admin.inc',
+  );
+
+  return $items;
+}
