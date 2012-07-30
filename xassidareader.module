@@ -24,11 +24,12 @@ function xassidareader_menu() {
    *  'type' => MENU_SUGGESTED_ITEM,
    *);
    */
-  $items['admin/config/xassidareader'] = array(
-    'title' => 'XassidaReader options',
-    'page callback' => 'xassidareader_admin_page',
-    'access arguments' => array(''),
-    'type' => MENU_SUGGESTED_ITEM,
+  $items['admin/config/content/xassidareader'] = array(
+    'title' => 'XassidaReader',
+    'description' => 'Configure how xassidareader works in your setup ',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('xassidareader_admin_form'),
+    'access arguments' => array('administer site configuration'),
     'file' => 'xassidareader.admin.inc',
   );
 
