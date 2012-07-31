@@ -15,9 +15,11 @@
  */
 
 /**
- * 
- * Implements hook_menu()
- * 
+ * ************************************************************************************
+ *
+ *  Implements hook_menu()
+ *
+ * ************************************************************************************
  */
 function xassidareader_menu() {
 
@@ -48,9 +50,11 @@ function xassidareader_menu() {
 }
 
 /**
+ * **************************************************************************************
  * 
  * Implements hook_block_info()
  * 
+ * **************************************************************************************
  */
 function xassidareader_block_info() {
 
@@ -70,8 +74,11 @@ function xassidareader_block_info() {
 
 
 /**
+ * **************************************************************************************
  * 
  * Implements hook_block_view()
+ *
+ * **************************************************************************************
  * 
  */
 function xassidareader_block_view($delta = '') {
@@ -82,13 +89,21 @@ function xassidareader_block_view($delta = '') {
 
     /**
      * If liste_xassaides block is the one needed
+     *
+     * TODO 
+     *   make the list of xassaides dynamic
+     *   link each xassaide to its reading page 
      */
     case 'list_xassaides':
       $block['subject'] = t('Listing Xassaides');
-      $block['content'] = theme('item_list', array(
-        'items' => array('mawaahibu naafih', 'jaawartu', 'midaadi'),
-        'type'  => 'ul'
-      ));
+      $block['content'] = array (
+        '#theme' => 'item_list',          
+        '#items' => array(
+            array(l('mawaahibu naafih', 'xassidareader/'.'mawaahibu naafih')), 
+            array(l('jaawartu', 'xassidareader/'.'jaawartu')), 
+            array(l('midaadi', 'xassidareader/'.'jaawartu'))
+        ), 
+      );
       break;
 
     default :
