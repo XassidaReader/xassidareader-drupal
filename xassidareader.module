@@ -6,24 +6,25 @@
  *
  * @author
  *  Papa Pathe SENE
- *  
+ *  pathe.sene@xarala.sn
+ *  pathe.sene@gmail.com
+ * 
  * @copyright
  * 	Xarala Web Studios
  * 
  */
 
 /**
- * Implements hook_menu().
+ * 
+ * Implements hook_menu()
+ * 
  */
 function xassidareader_menu() {
-  /*
-   *$items['blog'] = array(
-   *  'title' => 'blogs',
-   *  'page callback' => 'blog_page',
-   *  'access arguments' => array('access content'),
-   *  'type' => MENU_SUGGESTED_ITEM,
-   *);
-   */
+
+/**
+ * A menu item to configure XassidaReader
+ * ------------------------------------------------------------------------
+ */
   $items['admin/config/content/xassidareader'] = array(
     'title' => 'XassidaReader',
     'description' => 'Configure how xassidareader works in your setup ',
@@ -33,5 +34,90 @@ function xassidareader_menu() {
     'file' => 'xassidareader.admin.inc',
   );
 
+ /**
+  * A menu to list the xassaides 
+  * ------------------------------------------------------------------------
+  */
+ $items['xassidareader'] = array(
+ 	'title' => 'XassidaReader',
+ 	'page callback' => 'xassidareader_list_page',
+ 	'access callback' => TRUE,
+ );
+
   return $items;
+}
+
+/**
+ * 
+ * Implements hook_block_info()
+ * 
+ */
+function xassidareader_block_info() {
+
+  $blocks = array();
+
+  /**
+   * Declare a block to list xassaides
+   */
+  $blocks['list_xassaides'] = array(
+    'info' => t('Show a list of xassides'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  return $blocks;
+
+}
+
+
+/**
+ * 
+ * Implements hook_block_view()
+ * 
+ */
+function xassidareader_block_view($delta = '') {
+  
+  $block = array();
+
+  switch ($delta) {
+
+    /**
+     * If liste_xassaides block is the one needed
+     */
+    case 'list_xassaides':
+      $block['subject'] = t('Listing Xassaides');
+      $block['content'] = theme('item_list', array(
+        'items' => array('mawaahibu naafih', 'jaawartu', 'midaadi'),
+        'type'  => 'ul'
+      ));
+      break;
+
+    default :
+      break;
+    
+  }
+
+  return $block;
+}
+
+
+/**
+ * xassidareader_list_page
+ * ------------------------------------------------------------------------
+ * List all xassidas in the page
+ *
+ * @return Array
+ * @author 
+ **/
+function xassidareader_list_page()
+{
+	$content = array();
+
+
+	$content['title'] = array(
+		'#type'   => 'markup',
+		'#markup' => '<h1>Listing Xassaides</h1>'
+	);
+
+
+	return $content;
 }

@@ -1,3 +1,15 @@
-name = xassidareader
-description = xassida reader drupal module
+
+name = XassidaReader
+description = XassidaReader drupal module
+package = xarala
 core = 7.x
+
+;Files
+;------------------------------------------------
+files[] = xasiidareader.module
+files[] = xasiidareader.pages.inc
+files[] = xasiidareader.admin.inc
+
+;Dependencies
+;------------------------------------------------
+dependencies[] = less

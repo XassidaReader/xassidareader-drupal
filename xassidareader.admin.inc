@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * @file
+ *  XassidaReader Drupal Module Admin
+ *
+ * @author
+ *  Papa Pathe SENE
+ *  pathe.sene@xarala.sn
+ *  pathe.sene@gmail.com
+ * 
+ * @copyright
+ * 	Xarala Web Studios
+ * 
+ */
 
 
 /**
@@ -7,7 +19,6 @@
  *
  * Displays a form to configure xassidareader
  * 
- * @author Papa Pathe SENE
  * 
  * @return void
  * 
@@ -50,5 +61,8 @@ function xassidareader_admin_form($form, &$form_state)
 		)
 	);
 
+	/**
+	 * return a system settings form
+	 */	
 	return system_settings_form($form);
 }
