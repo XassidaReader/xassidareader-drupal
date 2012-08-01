@@ -17,8 +17,11 @@
 /**
  * ************************************************************************************
  *
- *  Implements hook_menu()
+ * Implements hook_menu()
  *
+ * @return Array
+ * @author Papa Pathe SENE
+ * 
  * ************************************************************************************
  */
 function xassidareader_menu() {
@@ -54,6 +57,9 @@ function xassidareader_menu() {
  * 
  * Implements hook_block_info()
  * 
+ * @return Array
+ * @author Papa Pathe SENE
+ * 
  * **************************************************************************************
  */
 function xassidareader_block_info() {
@@ -78,6 +84,9 @@ function xassidareader_block_info() {
  * 
  * Implements hook_block_view()
  *
+ * @return Array
+ * @author Papa Pathe SENE
+ * 
  * **************************************************************************************
  * 
  */
@@ -95,14 +104,41 @@ function xassidareader_block_view($delta = '') {
      *   link each xassaide to its reading page 
      */
     case 'list_xassaides':
+
+      /**
+       * Create an array and populate it with xassaides
+       */
+      $xassaides = array();
+
+      /**
+       * Populate it with xassaides
+       */      
+      $xassaides[] = array (
+        'data' => array (
+          '#type'  => 'link',
+          '#title' => 'mawaahibu naafih',
+          '#href'  => 'xassidareader/'.'mawaahibu naafih'
+        )
+      );
+      
+      $xassaides[] = array (
+        'data' => array (
+          '#type'  => 'link',
+          '#title' => 'jaawartou',
+          '#href'  => 'xassidareader/'.'jaawartou'
+        )
+      );
+
       $block['subject'] = t('Listing Xassaides');
-      $block['content'] = array (
-        '#theme' => 'item_list',          
-        '#items' => array(
-            array(l('mawaahibu naafih', 'xassidareader/'.'mawaahibu naafih')), 
-            array(l('jaawartu', 'xassidareader/'.'jaawartu')), 
-            array(l('midaadi', 'xassidareader/'.'jaawartu'))
-        ), 
+      $block['content']['xassaides_list'] = array (
+        '#theme'      => 'item_list',          
+        '#items'      => $xassaides, 
+        '#pre_render' => array('_list_xassaides_block_prerender')
+      );
+      $block['content']['more_link'] = array(
+        '#theme' => 'more_link',
+        '#url'   => 'xassidareader',
+        '#title' => t('view all')
       );
       break;
 
@@ -121,7 +157,7 @@ function xassidareader_block_view($delta = '') {
  * List all xassidas in the page
  *
  * @return Array
- * @author 
+ * @author Papa Pathe SENE
  **/
 function xassidareader_list_page()
 {
@@ -135,4 +171,25 @@ function xassidareader_list_page()
 
 
 	return $content;
+}
+
+
+
+/**
+ * A pre_render function for the list_xassaides_block
+ *
+ * @return Array
+ * @param  Array A list of xassaides
+ * @author Papa Pathe SENE
+ **/
+function _list_xassaides_block_prerender($xassaides)
+{
+
+  foreach (array_keys($xassaides['#items']) AS $key) {
+    if (is_array($xassaides['#items'][$key]['data'])) {
+      $xassaides['#items'][$key]['data'] = drupal_render($xassaides['#items'][$key]['data']);
+    }
+  }
+  return $xassaides;
+
 }
